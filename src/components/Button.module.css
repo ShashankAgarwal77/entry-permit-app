@@ -1,0 +1,88 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: var(--touch-target);
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Primary — the one action per screen. Color-only state change, no transform. */
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.primary:active:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.primary:disabled {
+  background: var(--slate-200);
+  color: var(--slate-400);
+}
+
+/* Secondary / ghost — Cancel/Back. Transparent at rest, one permitted hover fill. */
+.secondary {
+  background: transparent;
+  color: var(--accent-hover);
+  border-color: var(--border);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--hover-fill);
+}
+
+.secondary:active:not(:disabled) {
+  background: var(--pressed-fill);
+}
+
+.secondary:disabled {
+  color: var(--slate-400);
+  border-color: var(--border);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* The one spinner in the system — a submit awaiting a response. */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  border: 2px solid color-mix(in oklch, currentColor 30%, transparent);
+  border-top-color: currentColor;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}

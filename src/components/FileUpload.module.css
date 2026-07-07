@@ -1,0 +1,156 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.required {
+  color: var(--status-denied);
+}
+
+.zone {
+  position: relative;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out);
+}
+
+.zoneDragOver {
+  border-color: var(--accent);
+  background: var(--hover-fill);
+}
+
+/* On a successful upload the border goes solid — the drop-zone becomes a card. */
+.zoneFilled {
+  border-style: solid;
+  border-color: var(--border);
+}
+
+.nativeInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-lg);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--ink-secondary);
+  cursor: pointer;
+}
+
+.uploadIcon {
+  color: var(--slate-500);
+}
+
+.promptText {
+  font-size: var(--text-body-size);
+  color: var(--ink-secondary);
+}
+
+.filled {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+.thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.thumbFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  color: var(--status-approved);
+}
+
+.fileMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Reuse the Approved status color to confirm the file was accepted. */
+.check {
+  color: var(--status-approved);
+  flex-shrink: 0;
+}
+
+.accepted {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--status-approved);
+}
+
+.fileName {
+  font-size: var(--text-body-size);
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.replace {
+  flex-shrink: 0;
+  min-height: var(--touch-target);
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--accent-hover);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease-out);
+}
+
+.replace:hover {
+  background: var(--hover-fill);
+}
+
+.hint {
+  color: var(--ink-secondary);
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+}

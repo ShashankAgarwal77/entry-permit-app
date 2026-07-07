@@ -1,0 +1,51 @@
+.group {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.cell {
+  width: 48px;
+  height: 56px;
+  padding: 0;
+  text-align: center;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-title-size);
+  font-weight: var(--text-title-weight);
+  font-variant-numeric: tabular-nums;
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+/* Focus: border shifts to accent, box-shadow fakes 2px without reflow. No glow. */
+.cell:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.cell:disabled {
+  color: var(--slate-400);
+  cursor: not-allowed;
+}
+
+/* Error: every cell's border shifts — no fill (Border-Not-Fill). */
+.cellError {
+  border-color: var(--status-denied);
+}
+
+.cellError:focus-visible {
+  border-color: var(--status-denied);
+  box-shadow: 0 0 0 1px var(--status-denied);
+}
+
+@media (max-width: 360px) {
+  .cell {
+    width: 42px;
+    height: 52px;
+  }
+}

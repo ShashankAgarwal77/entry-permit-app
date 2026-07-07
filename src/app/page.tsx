@@ -1,66 +1,202 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  AppShell,
+  Alert,
+  Button,
+  OtpInput,
+  TextInput,
+  IconCalendar,
+  IconCheck,
+  IconShieldCheck,
+} from "@/components";
 import styles from "./page.module.css";
 
-export default function Home() {
+const DEMO_CODE = "123456";
+const CODE_LENGTH = 6;
+
+type Step = "intro" | "phone" | "otp";
+
+const INTRO_STEPS = [
+  {
+    icon: IconCalendar,
+    title: "Request a visit",
+    body: "Tell us who you're visiting and when — a few plain steps on your phone.",
+  },
+  {
+    icon: IconCheck,
+    title: "Get approved",
+    body: "An officer reviews it. You'll see one clear status the whole way.",
+  },
+  {
+    icon: IconShieldCheck,
+    title: "Show your pass",
+    body: "Once approved, show your pass at the gate. No paperwork, no queue.",
+  },
+];
+
+export default function OnboardingPage() {
+  const router = useRouter();
+  const [step, setStep] = useState<Step>("intro");
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState<string>();
+  const [code, setCode] = useState("");
+  const [codeError, setCodeError] = useState<string>();
+  const [sending, setSending] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+
+  function sendCode(e: React.FormEvent) {
+    e.preventDefault();
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length < 10) {
+      setPhoneError("Enter a valid 10-digit mobile number.");
+      return;
+    }
+    setPhoneError(undefined);
+    setSending(true);
+    // Simulated send — no real SMS; the demo code is always 123456.
+    window.setTimeout(() => {
+      setSending(false);
+      setStep("otp");
+    }, 700);
+  }
+
+  function verify(fullCode: string) {
+    setVerifying(true);
+    window.setTimeout(() => {
+      if (fullCode === DEMO_CODE) {
+        router.push("/visits");
+      } else {
+        setVerifying(false);
+        setCodeError("That code doesn't match. In this demo, the code is 123456.");
+      }
+    }, 600);
+  }
+
+  function resend() {
+    setCode("");
+    setCodeError(undefined);
+  }
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+    <AppShell>
+      {step === "intro" && (
+        <section className={styles.intro}>
+          <div className={styles.introHead}>
+            <h1 className="text-display">Enter a government office without the paperwork.</h1>
+            <p className={styles.lede}>
+              Apply for your visit, get approved, and walk in with a pass on your
+              phone — verified in seconds at the gate.
+            </p>
+          </div>
+
+          <ol className={styles.steps}>
+            {INTRO_STEPS.map(({ icon: Icon, title, body }) => (
+              <li key={title} className={styles.stepItem}>
+                <span className={styles.stepIcon} aria-hidden="true">
+                  <Icon size={22} />
+                </span>
+                <span className={styles.stepText}>
+                  <span className={styles.stepTitle}>{title}</span>
+                  <span className={styles.stepBody}>{body}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          <Button fullWidth onClick={() => setStep("phone")}>
+            Get started
+          </Button>
+        </section>
+      )}
+
+      {step === "phone" && (
+        <form className={styles.form} onSubmit={sendCode}>
+          <header className={styles.formHead}>
+            <h1 className="text-headline">Sign in</h1>
+            <p className={styles.sub}>
+              Enter your mobile number and we&rsquo;ll send a one-time code.
+            </p>
+          </header>
+
+          <TextInput
+            label="Mobile number"
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel"
+            placeholder="10-digit number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            error={phoneError}
+            autoFocus
+          />
+
+          <div className={styles.actions}>
+            <Button type="submit" fullWidth loading={sending}>
+              {sending ? "Sending…" : "Send code"}
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              fullWidth
+              onClick={() => setStep("intro")}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+              Back
+            </Button>
+          </div>
+        </form>
+      )}
+
+      {step === "otp" && (
+        <div className={styles.form}>
+          <header className={styles.formHead}>
+            <h1 className="text-headline">Enter the code</h1>
+            <p className={styles.sub}>
+              We sent a 6-digit code to{" "}
+              <span className={styles.phone}>{phone.replace(/\D/g, "")}</span>.
+            </p>
+          </header>
+
+          <OtpInput
+            value={code}
+            onChange={(v) => {
+              setCode(v);
+              if (codeError) setCodeError(undefined);
+            }}
+            onComplete={verify}
+            length={CODE_LENGTH}
+            error={Boolean(codeError)}
+            disabled={verifying}
+            autoFocus
+          />
+
+          {codeError && (
+            <p className={styles.codeError} role="alert">
+              <span aria-hidden="true">✕</span> {codeError}
+            </p>
+          )}
+
+          <Alert variant="info">
+            This is a demo — the code is always <strong>123456</strong>.
+          </Alert>
+
+          <div className={styles.actions}>
+            <Button
+              fullWidth
+              loading={verifying}
+              disabled={code.length < CODE_LENGTH}
+              onClick={() => verify(code)}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              {verifying ? "Verifying…" : "Verify"}
+            </Button>
+            <button type="button" className={styles.resend} onClick={resend}>
+              Resend code
+            </button>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+    </AppShell>
   );
 }

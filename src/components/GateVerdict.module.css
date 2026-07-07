@@ -1,0 +1,164 @@
+.verdict {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ---- Verdict: loud through scale, not fill ---- */
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  animation: rise var(--dur) var(--ease-out) both;
+}
+
+/* The status dot, grown into a medallion — a bounded icon, not a background. */
+.medallion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: var(--radius-full);
+  background: var(--status-verified);
+  color: var(--color-white);
+}
+
+/* ---- Identity match ---- */
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+  padding: var(--space-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: left;
+}
+
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.photo,
+.photoImg {
+  width: 96px;
+}
+
+.photo {
+  height: auto;
+}
+
+.photoImg {
+  height: 96px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.photoIcon {
+  width: 96px;
+  height: 96px;
+  padding: 20px;
+  color: var(--slate-400);
+  background: var(--slate-100);
+  border-radius: var(--radius-md);
+}
+
+.photoCaption {
+  font-size: 0.6875rem;
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--text-headline-size);
+  font-weight: var(--text-headline-weight);
+  letter-spacing: var(--text-headline-tracking);
+  color: var(--ink);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+}
+
+.factLabel {
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.factValue {
+  font-size: var(--text-body-size);
+  color: var(--ink);
+}
+
+.mono {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Actions ---- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.admittedNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-size: var(--text-body-size);
+  color: var(--ink);
+}
+
+.admittedCheck {
+  color: var(--status-approved);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    animation: none;
+  }
+}
+
+/* Roomier on wider screens: photo beside a larger verdict. */
+@media (min-width: 640px) {
+  .medallion {
+    width: 104px;
+    height: 104px;
+  }
+}

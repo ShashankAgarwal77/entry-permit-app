@@ -1,0 +1,75 @@
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--alert-bg);
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--alert-accent);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+/* Message copy stays ink, never tinted — always fully legible. */
+.message {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  color: var(--ink);
+}
+
+.close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--slate-500);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease-out);
+}
+
+.close:hover {
+  background: oklch(0% 0 0 / 0.05);
+}
+
+/* ---- Variants: tint + icon accent ---- */
+.info {
+  --alert-bg: var(--alert-info-bg);
+  --alert-accent: var(--slate-600);
+}
+
+.pending {
+  --alert-bg: var(--alert-pending-bg);
+  --alert-accent: var(--status-pending);
+}
+
+.approved {
+  --alert-bg: var(--alert-approved-bg);
+  --alert-accent: var(--status-approved);
+}
+
+.denied {
+  --alert-bg: var(--alert-denied-bg);
+  --alert-accent: var(--status-denied);
+}

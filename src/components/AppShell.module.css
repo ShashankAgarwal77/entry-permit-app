@@ -1,0 +1,132 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* Pinned top bar, separated from content by a single hairline border. */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  /* Clear the notch on the left/right when in landscape. */
+  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  height: 56px;
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brandMark {
+  color: var(--accent);
+}
+
+.brandName {
+  font-size: var(--text-title-size);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.navLink {
+  position: relative;
+  padding: 6px 0;
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  text-decoration: none;
+  color: var(--accent-hover);
+}
+
+/* Active section: a 2px accent underline — never a filled pill. */
+.navActive {
+  color: var(--accent);
+}
+
+.navActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Only the content region scrolls; the bar stays put. */
+.main {
+  flex: 1;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md)
+    calc(var(--space-xl) + env(safe-area-inset-bottom));
+}
+
+.default {
+  max-width: var(--content-width);
+}
+
+.wide {
+  max-width: var(--content-width-wide);
+}
+
+/* Full-bleed: the gate-verification exception to the centered column. */
+.full {
+  max-width: none;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+@media (min-width: 640px) {
+  .bar {
+    padding: 0 var(--space-lg);
+  }
+
+  .main {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+
+  .full {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}

@@ -1,0 +1,85 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  line-height: var(--text-label-lh);
+  color: var(--ink-secondary);
+}
+
+.required {
+  color: var(--status-denied);
+}
+
+.wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: 10px 40px 10px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  appearance: none;
+  cursor: pointer;
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.select:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* Empty (placeholder still selected) reads as muted; a real choice reads as ink. */
+.select:required:invalid {
+  color: var(--placeholder);
+}
+
+.select:disabled {
+  color: var(--slate-400);
+  cursor: not-allowed;
+}
+
+.selectError {
+  border-color: var(--status-denied);
+}
+
+.selectError:focus-visible {
+  border-color: var(--status-denied);
+  box-shadow: 0 0 0 1px var(--status-denied);
+}
+
+.chevron {
+  position: absolute;
+  right: 12px;
+  color: var(--ink-secondary);
+  pointer-events: none;
+}
+
+.error {
+  color: var(--status-denied);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+}
+
+.hint {
+  color: var(--ink-secondary);
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+}

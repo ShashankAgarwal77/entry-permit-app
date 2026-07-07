@@ -1,0 +1,58 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--ink);
+}
+
+.dot {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--dot-color);
+}
+
+.label {
+  color: var(--ink);
+}
+
+/* ---- Sizes ---- */
+.sm {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+}
+
+.sm .dot {
+  width: 8px;
+  height: 8px;
+}
+
+.lg {
+  font-size: var(--text-display-size);
+  font-weight: var(--text-display-weight);
+  line-height: var(--text-display-lh);
+  letter-spacing: var(--text-display-tracking);
+  gap: var(--space-md);
+}
+
+.lg .dot {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Status hues (drive the dot) ---- */
+.pending {
+  --dot-color: var(--status-pending);
+}
+
+.approved {
+  --dot-color: var(--status-approved);
+}
+
+.denied {
+  --dot-color: var(--status-denied);
+}
+
+.verified {
+  --dot-color: var(--status-verified);
+}

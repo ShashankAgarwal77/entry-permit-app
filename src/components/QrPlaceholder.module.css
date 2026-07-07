@@ -1,0 +1,13 @@
+.qr {
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* The one true-contrast pairing: pure black modules on pure white. */
+.bg {
+  fill: var(--qr-bg);
+}
+
+.modules {
+  fill: var(--qr-module);
+}

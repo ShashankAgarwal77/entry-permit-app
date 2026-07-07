@@ -1,0 +1,80 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  line-height: var(--text-label-lh);
+  color: var(--ink-secondary);
+}
+
+.required {
+  color: var(--status-denied);
+}
+
+.input {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: 10px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
+
+/* Focus: border shifts to accent; box-shadow fakes the 2px without reflow. No glow. */
+.input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.input:disabled {
+  background: var(--surface);
+  color: var(--slate-400);
+  border-color: var(--border);
+  cursor: not-allowed;
+}
+
+/* Error: border only — no red fill, which would break Border-Not-Fill. */
+.inputError {
+  border-color: var(--status-denied);
+}
+
+.inputError:focus-visible {
+  border-color: var(--status-denied);
+  box-shadow: 0 0 0 1px var(--status-denied);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--status-denied);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+}
+
+.error svg {
+  flex-shrink: 0;
+}
+
+.hint {
+  color: var(--ink-secondary);
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+}
