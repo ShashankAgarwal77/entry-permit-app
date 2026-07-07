@@ -148,6 +148,16 @@ components:
     backgroundColor: "{colors.teal-600}"
     textColor: "{colors.white}"
     rounded: "{rounded.md}"
+  visit-request-row:
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.slate-900}"
+    rounded: "{rounded.md}"
+    padding: "16px"
+  identity-summary:
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.slate-900}"
+    rounded: "{rounded.md}"
+    padding: "16px"
 ---
 
 # Design System: Entry Permit App
@@ -238,7 +248,9 @@ Flat by default, everywhere. With white as the only background color, this syste
 
 Scoped to the **visitor flow** first (Apply → Review → Approved → Pass → Verified), per PRODUCT.md's "one flow, three lenses" principle. **Gate Security** components begin below (Scanner / Camera Viewport, Gate Verdict Panel); they reuse the same tokens rather than introducing a second language. Approving Officer components follow next.
 
-**Component list:** App Shell, Text Input, Select/Dropdown, Date & Time Picker, Document/Photo Upload, Button (Primary/Secondary/Disabled/Loading), Status Indicator (dot + label), Progress Stepper, Entry Pass Card, Inline Alert/Banner, Empty State, Scanner / Camera Viewport (Gate Security), Gate Verdict Panel (Gate Security), OTP Code Input (Onboarding).
+**Component list:** App Shell, Text Input, Select/Dropdown, Date & Time Picker, Document/Photo Upload, Button (Primary/Secondary/Disabled/Loading), Status Indicator (dot + label), Progress Stepper, Entry Pass Card, Visit Request Row, Identity Summary, Inline Alert/Banner, Empty State, Scanner / Camera Viewport (Gate Security), Gate Verdict Panel (Gate Security), OTP Code Input (Onboarding).
+
+**The Generous Tap Rule (applies to every component below).** Every tappable control — button, icon-button, or link acting as a control — has at least a 44×44px hit area, even when its visible glyph or label is smaller (e.g. a close icon can render at 18px inside a 44px tap box). This turns PRODUCT.md's "generous touch targets" principle into a concrete, checkable minimum rather than a suggestion.
 
 ### App Shell (structural frame)
 The persistent frame every screen renders inside — identical across all three roles, differing only in what the top bar shows and where content is routed. It is not a screen; it is the container that guarantees consistency and enforces the one-task-per-screen discipline.
@@ -298,12 +310,28 @@ The system's one true "boarding pass": the credential a visitor holds between Ap
 ### Navigation
 - **Style:** a simple top bar on `white`, separated from content by a single `slate-200` bottom border — app name/logo left, a single "My Visits" or profile entry right. No sidebar, no nested menus (Notion-simple, per the anti-references).
 - **Typography:** `typography.label`, `slate-900` text, `teal-600` for the active section indicator (a 2px underline, not a filled pill or background).
-- **Mobile:** the same bar collapses to icon + label only; no hamburger menu for a 2–3 item nav.
+- **Desktop/tablet (≥640px):** links render inline in the top bar, exactly as above.
+- **Mobile (<640px):** the inline links are replaced by a single hamburger icon-button (a `slate-900` icon, no fill, meeting the Generous Tap Rule below) at the top-right. Tapping it opens a **transient full-width panel** anchored directly under the top bar: `white` background, a `slate-200` top divider, nav items stacked vertically as 44px-tall rows with the same label + teal-underline-on-active treatment as desktop. It closes on item selection or an outside tap. This is a disclosure, not new permanent chrome — it doesn't violate the Invisible Shell Rule (no persistent sidebar, no colored surface) because nothing is visible until the guard/visitor/officer asks for it.
+- **Account/profile entry:** a persistent icon-button at the far right of the top bar (a `slate-900` user icon in a 44px tap target, no fill), linking to the Profile screen. It sits after the inline nav links on desktop and to the left of the hamburger on mobile — the "profile entry right" the Navigation opens with. It never grows into a menu or colored surface; it's a single quiet affordance, one tap to the profile.
 
 ### Progress Stepper (signature component)
 Apply → Review → Approved → Pass → Verified, always visible on any screen within an active application.
 - **Style:** horizontal row of steps connected by a `slate-200` line; completed steps are a filled `teal-600` circle with a `white` check glyph, the current step is an outlined `teal-600` ring on `white`, upcoming steps are a `slate-300` outline with `slate-400` label text.
 - **Purpose:** the direct expression of PRODUCT.md's "status is always unambiguous" principle — a visitor should be able to glance at this and know exactly where they stand without reading a paragraph.
+- **Reusable for any multi-step sequence, not only the top-level journey.** The same component (a step label list + a current index) also drives sub-flows nested inside one journey stage — e.g. the Apply form's own internal steps (Your details → Visit details → ID photo → Review) before that stage hands off to Review/Approved. Same visual language throughout; the label set is contextual to whichever flow it's placed in.
+
+### Visit Request Row (signature component)
+The list item for a submitted-but-not-yet-decided visit on My Visits — simpler than the Entry Pass Card because there's no pass to show yet.
+- **Style:** `white` background, `slate-200` 1px border, `rounded.md` (8px), `16px` (`spacing.md`) padding — the same bordered list-row language as everywhere else (Border-Not-Fill Rule).
+- **Content:** a two-column layout — left side carries purpose of visit (`typography.title`) and host/department (`typography.body`/`slate-600`); right side stacks the requested date/time (`typography.label`/`slate-600`) above a **Status Indicator** (`Pending` today; the same component will show `Approved`/`Denied` once the officer-review flow exists).
+- **Use:** rows stack with `spacing.md` gaps on My Visits once at least one request exists, replacing the Empty State.
+
+### Identity Summary (signature component)
+A compact, read-only view of the visitor's enrolled identity — so the same identity reads consistently in the two places it appears: the Profile screen header and the Apply/Review "Applying as…" summary.
+- **Style:** `white` background, `slate-200` 1px border, `rounded.md` (8px), `16px` (`spacing.md`) padding (Border-Not-Fill Rule). A horizontal row.
+- **Content:** left, a small ID-photo thumbnail (`rounded.sm`, `slate-200` border) or an initials-avatar fallback (`teal-50` fill, `teal-700` initials — the pass-card avatar treatment); then the visitor **name** (`typography.title`) with an optional secondary line for the phone (`typography.label`/`slate-600`); and an **"ID enrolled"** confirmation — a `green-600` check icon + label, reusing the Document/Photo Upload accepted treatment (icon + label, never color alone).
+- **Optional trailing action:** a plain-text **Edit** link (`teal-700`, Generous Tap Rule) on the Profile screen; omitted in the read-only Apply/Review context.
+- **Use:** the header of the Profile screen (with Edit), and the identity block on the Apply flow / Review step (without Edit), where the visitor confirms "this is who's applying" before choosing visit details.
 
 ### Inline Alert / Banner (signature component)
 - **Style:** full-width, `rounded.sm`, no border — the system's one deliberate exception to the Border-Not-Fill Rule: background tint matches the message's semantic color (`amber-100`/`green-100`/`red-100`) at reduced footprint, icon + `typography.body` text in `slate-900` (not tinted) so the message copy stays fully legible.

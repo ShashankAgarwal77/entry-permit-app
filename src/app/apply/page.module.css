@@ -1,0 +1,74 @@
+.wizard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.stepper {
+  margin-top: calc(-1 * var(--space-sm));
+}
+
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.applyingAs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.applyingLabel {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.reviewLede {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  color: var(--ink-secondary);
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: 0;
+  padding: var(--space-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.factLabel {
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+  flex-shrink: 0;
+}
+
+.factValue {
+  font-size: var(--text-body-size);
+  color: var(--ink);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}

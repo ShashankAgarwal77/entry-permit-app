@@ -9,9 +9,9 @@ A member of the public visiting a government office — the citizen at the cente
 - Low tolerance for jargon, dense forms, or ambiguity about "what happens next."
 
 ## What they need to see and do
-- Apply for a visit: who they are, who/what they're visiting, and when.
-- Upload a government-ID photo (used to simulate identity — see domain rules).
 - Log in via OTP (demo code `123456`).
+- Maintain a profile: their name + an enrolled government-ID photo (used to simulate identity — see domain rules), set up once and editable anytime.
+- Apply for a visit: pick who/what they're visiting and when — identity is pre-filled from their profile.
 - Track a single, unambiguous status: Pending → Approved / Denied.
 - Receive and open their time-boxed entry pass (QR) once approved.
 - Present the pass at the gate for verification.

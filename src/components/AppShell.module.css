@@ -33,6 +33,7 @@
   gap: var(--space-sm);
   color: var(--ink);
   text-decoration: none;
+  min-height: var(--touch-target);
 }
 
 .brand:hover {
@@ -55,15 +56,18 @@
   gap: var(--space-md);
 }
 
+/* ---- Desktop/tablet inline nav (>=640px) ---- */
 .nav {
-  display: flex;
+  display: none;
   align-items: center;
   gap: var(--space-lg);
 }
 
 .navLink {
   position: relative;
-  padding: 6px 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
   font-size: var(--text-label-size);
   font-weight: var(--text-label-weight);
   letter-spacing: var(--text-label-tracking);
@@ -86,9 +90,109 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -1px;
+  bottom: 6px;
   height: 2px;
   background: var(--accent);
+}
+
+/* The `right` slot (e.g. a profile node) is desktop/tablet-only; on mobile it
+   moves into the hamburger panel instead of competing with the toggle. */
+.desktopOnly {
+  display: none;
+  align-items: center;
+}
+
+/* Used when `right` has no accompanying nav/hamburger to hide behind. */
+.rightAlways {
+  display: flex;
+  align-items: center;
+}
+
+/* ---- Account/profile entry (persistent, all widths) ---- */
+.account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  padding: 0;
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.account:hover {
+  background: var(--hover-fill);
+  text-decoration: none;
+}
+
+/* ---- Mobile hamburger toggle (<640px) ---- */
+.menuToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  margin: 0 calc(-1 * var(--space-sm) / 2);
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menuToggle:hover {
+  background: var(--hover-fill);
+}
+
+/* ---- Mobile disclosure panel ---- */
+.panel {
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.panelNav {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.panelLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-sm);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-label-weight);
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.panelLink:hover {
+  text-decoration: none;
+  background: var(--hover-fill);
+}
+
+.panelLinkActive {
+  color: var(--accent);
+}
+
+.panelLinkActive::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--accent);
+}
+
+.panelExtra {
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-top: 1px solid var(--border);
 }
 
 /* Only the content region scrolls; the bar stays put. */
@@ -118,6 +222,20 @@
 @media (min-width: 640px) {
   .bar {
     padding: 0 var(--space-lg);
+  }
+
+  .nav {
+    display: flex;
+  }
+
+  .desktopOnly {
+    display: flex;
+  }
+
+  /* Nav is inline at this width — the toggle and its panel never appear. */
+  .menuToggle,
+  .panel {
+    display: none;
   }
 
   .main {

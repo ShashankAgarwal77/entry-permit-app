@@ -6,18 +6,20 @@ import {
   AppShell,
   Alert,
   Button,
+  FileUpload,
   OtpInput,
   TextInput,
   IconCalendar,
   IconCheck,
   IconShieldCheck,
 } from "@/components";
+import { saveProfile } from "@/lib/profile";
 import styles from "./page.module.css";
 
 const DEMO_CODE = "123456";
 const CODE_LENGTH = 6;
 
-type Step = "intro" | "phone" | "otp";
+type Step = "intro" | "phone" | "otp" | "profile";
 
 const INTRO_STEPS = [
   {
@@ -47,6 +49,13 @@ export default function OnboardingPage() {
   const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
 
+  // Profile-setup step.
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState<string>();
+  const [idPhoto, setIdPhoto] = useState<string | null>(null);
+  const [idPhotoError, setIdPhotoError] = useState<string>();
+  const [savingProfile, setSavingProfile] = useState(false);
+
   function sendCode(e: React.FormEvent) {
     e.preventDefault();
     const digits = phone.replace(/\D/g, "");
@@ -67,7 +76,8 @@ export default function OnboardingPage() {
     setVerifying(true);
     window.setTimeout(() => {
       if (fullCode === DEMO_CODE) {
-        router.push("/visits");
+        setVerifying(false);
+        setStep("profile");
       } else {
         setVerifying(false);
         setCodeError("That code doesn't match. In this demo, the code is 123456.");
@@ -78,6 +88,41 @@ export default function OnboardingPage() {
   function resend() {
     setCode("");
     setCodeError(undefined);
+  }
+
+  function handleIdPhoto(file: File | null) {
+    if (!file) {
+      setIdPhoto(null);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setIdPhoto(typeof reader.result === "string" ? reader.result : null);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function saveAndFinish() {
+    let ok = true;
+    if (!name.trim()) {
+      setNameError("Enter your full name.");
+      ok = false;
+    }
+    if (!idPhoto) {
+      setIdPhotoError("Upload a government-ID photo to continue.");
+      ok = false;
+    }
+    if (!ok) return;
+
+    setSavingProfile(true);
+    window.setTimeout(() => {
+      saveProfile({
+        fullName: name.trim(),
+        phone: phone.replace(/\D/g, ""),
+        idPhotoDataUrl: idPhoto,
+      });
+      router.push("/visits");
+    }, 600);
   }
 
   return (
@@ -194,6 +239,60 @@ export default function OnboardingPage() {
             <button type="button" className={styles.resend} onClick={resend}>
               Resend code
             </button>
+          </div>
+        </div>
+      )}
+
+      {step === "profile" && (
+        <div className={styles.form}>
+          <header className={styles.formHead}>
+            <h1 className="text-headline">Set up your profile</h1>
+            <p className={styles.sub}>
+              Enrol your details once. We&rsquo;ll reuse them each time you apply
+              — no re-typing.
+            </p>
+          </header>
+
+          <TextInput
+            label="Full name"
+            placeholder="As printed on your ID"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (nameError) setNameError(undefined);
+            }}
+            error={nameError}
+            required
+            autoFocus
+          />
+
+          <div className={styles.readonly}>
+            <span className={styles.readonlyLabel}>Mobile number</span>
+            <span className={styles.readonlyValue}>{phone.replace(/\D/g, "")}</span>
+            <span className={styles.readonlyHint}>From your login — can&rsquo;t be changed.</span>
+          </div>
+
+          <div>
+            <FileUpload
+              label="Government-ID photo"
+              hint="Used only to simulate your identity for the gate check. No real biometric data is stored."
+              required
+              onFileSelect={(file) => {
+                handleIdPhoto(file);
+                if (idPhotoError) setIdPhotoError(undefined);
+              }}
+            />
+            {idPhotoError && (
+              <p className={styles.codeError} role="alert">
+                <span aria-hidden="true">✕</span> {idPhotoError}
+              </p>
+            )}
+          </div>
+
+          <div className={styles.actions}>
+            <Button fullWidth loading={savingProfile} onClick={saveAndFinish}>
+              {savingProfile ? "Saving…" : "Save and continue"}
+            </Button>
           </div>
         </div>
       )}

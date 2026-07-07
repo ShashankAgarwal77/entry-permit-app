@@ -33,7 +33,11 @@
   color: var(--ink);
 }
 
+/* Visible box stays compact so it doesn't overpower the alert; the actual tap
+   area is expanded to the 44px minimum via an invisible centered pseudo-box
+   (Generous Tap Rule) rather than growing the icon itself. */
 .close {
+  position: relative;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -47,6 +51,15 @@
   color: var(--slate-500);
   cursor: pointer;
   transition: background var(--dur) var(--ease-out);
+}
+
+.close::before {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  width: max(100%, var(--touch-target));
+  height: max(100%, var(--touch-target));
+  transform: translate(-50%, -50%);
 }
 
 .close:hover {

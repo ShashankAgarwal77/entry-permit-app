@@ -20,6 +20,7 @@ Self-serve visitor entry for government office buildings: a visitor applies for 
 
 ### `product/workflows/` — end-to-end flows with states and edges
 - `onboarding.md` — first open through signed-in and ready to apply (visitor first-run).
+- `profile.md` — enrol identity once (name + ID photo), edit anytime; pre-fills applications.
 - `request-and-approval.md` — request submitted through pass issued.
 - `gate-verification.md` — arrival through allow/deny at the gate.
 - `manual-fallback.md` — what happens when automated verification can't proceed.

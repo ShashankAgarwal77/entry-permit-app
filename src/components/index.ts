@@ -13,4 +13,6 @@ export { EmptyState } from "./EmptyState";
 export { ScannerViewport } from "./ScannerViewport";
 export { GateVerdict, type VerifiedVisitor } from "./GateVerdict";
 export { OtpInput } from "./OtpInput";
+export { VisitRequestRow } from "./VisitRequestRow";
+export { IdentitySummary } from "./IdentitySummary";
 export * from "./icons";

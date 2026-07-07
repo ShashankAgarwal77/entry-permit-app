@@ -136,7 +136,11 @@
 
 .manualToggle {
   align-self: center;
-  padding: var(--space-xs) var(--space-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-sm);
   background: none;
   border: none;
   color: var(--accent-hover);

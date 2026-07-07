@@ -1,0 +1,63 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.purpose {
+  font-size: var(--text-title-size);
+  font-weight: var(--text-title-weight);
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.department {
+  font-size: var(--text-body-size);
+  color: var(--ink-secondary);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.when {
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+/* At wider widths the purpose/department rarely wrap onto multiple lines, so
+   the date/status column can sit beside them instead of stacking below. */
+@media (min-width: 640px) {
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-xs);
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .when {
+    white-space: nowrap;
+  }
+}

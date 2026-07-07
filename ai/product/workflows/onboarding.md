@@ -12,13 +12,15 @@ From a first-time visitor opening the app to being signed in and ready to apply.
 3. System "sends" a one-time passcode (demo — always `123456`; no real SMS is sent).
 4. Visitor enters the 6-digit code.
 5. System verifies the code and creates the session.
-6. Visitor lands on **My Visits** — on first run this is the empty state with a single primary action, "Apply for a visit."
+6. Visitor reaches **Set up your profile**: confirm full name and upload a government-ID photo (the mobile number is already known from login). This enrols the visitor's identity once — see `profile.md`.
+7. Visitor lands on **My Visits** — on first run this is the empty state with a single primary action, "Apply for a visit."
 
 ## Screen states
 - **Intro** — the plain-language "what is this," skippable.
 - **Phone entry** — mobile-number input + a continue action.
 - **OTP entry** — 6-digit code input (demo code `123456`), with a resend affordance.
 - **Verifying** — a brief pending state while the code is checked.
+- **Set up your profile** — confirm name + upload the government-ID photo (see `profile.md`).
 - **Signed in / landing** — the My Visits empty state on first run.
 
 ## Edge cases
@@ -30,5 +32,5 @@ From a first-time visitor opening the app to being signed in and ready to apply.
 - **Not production auth** — this is a demo: the OTP is always `123456`, never real authentication (domain rule).
 
 ## Notes
-- **Identity is not captured here.** The government-ID photo → simulated identity is collected per-application in the request-and-approval flow, so identity is never captured twice.
+- **Identity is enrolled here, once.** The full name and government-ID photo → simulated identity are captured during profile setup and stored in the visitor's profile, then reused for every application (see `profile.md`) — never re-collected per application.
 - Plain language over bureaucratic language, generous touch targets, one primary action per screen — for the visitor population's varied literacy and tech comfort.

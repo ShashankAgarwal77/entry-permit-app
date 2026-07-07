@@ -1,0 +1,92 @@
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.photo,
+.avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+}
+
+.photo {
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--teal-50);
+  color: var(--accent-hover);
+  font-size: var(--text-label-size);
+  font-weight: 600;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  font-size: var(--text-title-size);
+  font-weight: var(--text-title-weight);
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.phone {
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reuse the upload-accepted treatment: icon + label, never color alone. */
+.enrolled {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: 2px;
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--status-approved);
+}
+
+.enrolledCheck {
+  flex-shrink: 0;
+}
+
+.edit {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-sm);
+  background: none;
+  border: none;
+  color: var(--accent-hover);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  cursor: pointer;
+}
+
+.edit:hover {
+  text-decoration: underline;
+}

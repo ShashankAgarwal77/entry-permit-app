@@ -8,15 +8,14 @@ From a visitor submitting a request to a time-boxed pass being issued.
 - **System** — routes the request, enforces rules, issues the pass on approval.
 
 ## Steps
-1. Visitor logs in via OTP (demo code `123456`).
-2. Visitor fills the request: personal details, purpose of visit, host/department, requested date & time box.
-3. Visitor uploads a government-ID photo (used to derive a simulated identity — see domain rules).
-4. Visitor submits. Request enters **Pending** and is routed to the officer(s) for that department/host.
-5. Officer opens the request and reviews identity + purpose + host + time box in one view.
-6. Officer decides:
+1. Visitor logs in via OTP (demo code `123456`) and has an enrolled profile (name + ID photo — see `profile.md`).
+2. Visitor fills the request: purpose of visit, host/department, requested date & time box. Identity (name + ID photo) is **pre-filled from the profile**, not re-entered.
+3. Visitor submits. Request enters **Pending** and is routed to the officer(s) for that department/host.
+4. Officer opens the request and reviews identity + purpose + host + time box in one view.
+5. Officer decides:
    - **Approve** → system issues a single-visit, time-boxed pass with a QR; status → **Approved**.
    - **Reject** → officer supplies a plain-language reason; status → **Denied**.
-7. Visitor sees the outcome. If approved, the entry pass becomes available to open and carry.
+6. Visitor sees the outcome. If approved, the entry pass becomes available to open and carry.
 
 ## Screen states
 - **Draft** — request being filled, not yet submitted.

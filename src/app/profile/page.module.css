@@ -1,0 +1,73 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.note {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Read-only field: real content in ink (not the low-contrast disabled slate). */
+.readonly {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.readonlyLabel {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.readonlyValue {
+  font-size: var(--text-body-size);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.readonlyHint {
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.currentPhoto {
+  margin-top: var(--space-xs);
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.fieldError {
+  margin-top: var(--space-xs);
+  color: var(--status-denied);
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}

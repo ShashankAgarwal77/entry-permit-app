@@ -114,7 +114,11 @@
 
 .resend {
   align-self: center;
-  padding: var(--space-xs) var(--space-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-sm);
   background: none;
   border: none;
   color: var(--accent-hover);
@@ -126,4 +130,30 @@
 
 .resend:hover {
   text-decoration: underline;
+}
+
+/* Read-only field: real content in ink (not the low-contrast disabled slate). */
+.readonly {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.readonlyLabel {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
+}
+
+.readonlyValue {
+  font-size: var(--text-body-size);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.readonlyHint {
+  font-size: var(--text-label-size);
+  letter-spacing: var(--text-label-tracking);
+  color: var(--ink-secondary);
 }
